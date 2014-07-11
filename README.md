@@ -4,6 +4,19 @@ Simplify sharing state between Rails controllers and views and reduce noise in R
 
 Based on the idea behind [view_accessor](https://github.com/invisiblefunnel/view_accessor) and borrows features I like from [decent_exposure](https://github.com/voxdolo/decent_exposure).
 
+## Basic example
+
+```ruby
+# controllers/projects_controller.rb
+class ProjectsController < ApplicationController
+  expose(:projects) { Project.all }
+end
+
+# views/projects/index.html.slim
+- projects.each do |project|
+  p = project.title
+```
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -35,6 +48,14 @@ end
 # views/projects/index.html.slim
 - projects.each do |project|
   p = project.title
+```
+
+### Provide default values
+
+```ruby
+class ProjectsController < ApplicationController
+  expose(:projects) { Project.all }
+end
 ```
 
 ### Remove common noise with extensions
@@ -72,14 +93,6 @@ class ProjectsController < ApplicationController
   def index
     self.projects = Project.all
   end
-end
-```
-
-### Provide default values
-
-```ruby
-class ProjectsController < ApplicationController
-  expose(:projects) { Project.all }
 end
 ```
 

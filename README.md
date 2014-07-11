@@ -65,6 +65,20 @@ class ProjectsController < ApplicationController
 end
 ```
 
+### Combine multiple extensions
+
+```ruby
+class ProjectsController < ApplicationController
+
+  expose :projects, extend: %i(paginate decorate)
+
+  def index
+    self.projects = Project.all
+  end
+
+end
+```
+
 ### Provide default values
 
 ```ruby
@@ -81,22 +95,30 @@ Before:
 class ProjectsController < ApplicationController
 
   def index
-    @projects = Project.page(params[:page]).decorate
+    @projects = current_user.projects.ordered
+    @completed_projects = @projects.completed.page(params[:page])
+    @current_user = current_user.decorate
   end
 
 end
+
 ```
 
 After:
 
 ```ruby
 class ProjectsController < ApplicationController
+  expose :current_user, extend: :decorate
 
-  expose :projects, extend: %i(paginate decorate) do
-    Project.all
+  expose :projects do
+    current_user.projects.ordered
   end
 
+  expose :completed_projects, extend: :paginate do
+    projects.completed
+  end
 end
+
 ```
 
 ## Extensions

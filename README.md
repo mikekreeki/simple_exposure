@@ -1,7 +1,7 @@
 # SimpleExposure
 
 Simplify sharing state between Rails controllers and views and reduce noise in Rails controllers for those who are tired of writing the same code all over again.
-  
+
 Extends the idea behind [view_accessor](https://github.com/invisiblefunnel/view_accessor).
 
 ## Installation
@@ -55,13 +55,11 @@ After:
 
 ```ruby
 class ProjectsController < ApplicationController
-
   expose :projects, extend: :paginate
 
   def index
     self.projects = Project.all
   end
-
 end
 ```
 
@@ -69,13 +67,11 @@ end
 
 ```ruby
 class ProjectsController < ApplicationController
-
   expose :projects, extend: %i(paginate decorate)
 
   def index
     self.projects = Project.all
   end
-
 end
 ```
 
@@ -101,7 +97,6 @@ class ProjectsController < ApplicationController
   end
 
 end
-
 ```
 
 After:
@@ -118,7 +113,6 @@ class ProjectsController < ApplicationController
     projects.completed
   end
 end
-
 ```
 
 ## Extensions
@@ -141,7 +135,6 @@ module SimpleExposure
       def apply(value, controller)
         # Do something with the value here
       end
-
     end
   end
 end

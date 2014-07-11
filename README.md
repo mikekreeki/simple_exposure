@@ -37,7 +37,7 @@ end
   p = project.title
 ```
 
-#### Remove common noise with extensions
+### Remove common noise with extensions
 
 Before:
 

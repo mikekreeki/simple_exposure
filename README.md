@@ -1,8 +1,8 @@
 # SimpleExposure
 
-Simplify sharing state between Rails controllers and views and reduce noise in Rails controllers for those who are tired of writing the same code all over again.
+Simplify sharing state between Rails controllers and views and reduce noise in Rails controllers for those who are tired of writing the same code over and over again.
 
-Extends the idea behind [view_accessor](https://github.com/invisiblefunnel/view_accessor).
+Based on the idea behind [view_accessor](https://github.com/invisiblefunnel/view_accessor) and borrows features I like from [decent_exposure](https://github.com/voxdolo/decent_exposure).
 
 ## Installation
 

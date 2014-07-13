@@ -44,11 +44,11 @@ module SimpleExposure
         _define_exposure_extensions(attributes, extensions)
       end
 
-      protected
-
       def _exposure_extensions
         @_exposure_extensions ||= HashWithIndifferentAccess.new([])
       end
+
+      private
 
       def _define_exposure_accessors(attributes, &block)
         _define_exposure_readers(attributes, &block)

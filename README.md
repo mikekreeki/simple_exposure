@@ -1,5 +1,7 @@
 # SimpleExposure
 
+![Gem version](http://img.shields.io/gem/v/simple_exposure.svg)
+
 Simplify sharing state between Rails controllers and views and reduce noise in Rails controllers for those who are tired of writing the same code over and over again.
 
 Based on the idea behind [view_accessor](https://github.com/invisiblefunnel/view_accessor) borrowing features I like from [decent_exposure](https://github.com/voxdolo/decent_exposure).

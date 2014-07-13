@@ -1,5 +1,8 @@
-require "simple_exposure/version"
+require 'simple_exposure/version'
+require 'simple_exposure/before_render'
+require 'simple_exposure/core'
 
-module SimpleExposure
-  # Your code goes here...
+ActiveSupport.on_load(:action_controller) do
+  include SimpleExposure::BeforeRender
+  include SimpleExposure::Core
 end

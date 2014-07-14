@@ -47,5 +47,9 @@ describe ApplicationController, type: :controller do
     it 'applies the extension when specified using a shortcut' do
       expect(view.other_user).to eq 'Andrew Bennett'
     end
+
+    it 'takes additional extensions' do
+      expect(view.combined_extension).to eq 'HELLO'
+    end
   end
 end

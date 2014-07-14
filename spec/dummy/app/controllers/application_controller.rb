@@ -19,6 +19,19 @@ class ApplicationController < ActionController::Base
 
   decorate(:other_user) { OpenStruct.new(decorate: 'Andrew Bennett') }
 
+  paginate :combined_extension, extend: :decorate do
+    Class.new do
+      def page(*)
+        @name = 'Hello'
+        self
+      end
+
+      def decorate
+        @name.upcase
+      end
+    end.new
+  end
+
   def index
     self.other_message = 'Other message'
     @ivar_message = 'Hello!'

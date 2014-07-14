@@ -98,7 +98,12 @@ module SimpleExposure
         extension_class = _exposure_extension_class(extension.to_s)
         if extension_class
           options = attributes.extract_options!
-          options = options.merge(extend: extension)
+
+          extensions = options.fetch(:extend, nil)
+          extensions = Array(extensions)
+          extensions = extensions.prepend(extension)
+
+          options = options.merge(extend: extensions)
 
           expose(*attributes, options, &block)
         end

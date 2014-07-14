@@ -22,8 +22,11 @@ module SimpleExposure
 
     def _apply_exposure_extension(attribute, extension)
       value = send(attribute)
-      extension = _exposure_extension_class(extension)
-      send :"#{attribute}=", extension.apply(value, self)
+
+      unless value.nil?
+        extension = _exposure_extension_class(extension)
+        send :"#{attribute}=", extension.apply(value, self)
+      end
     end
 
     def _exposure_extension_class(extension)

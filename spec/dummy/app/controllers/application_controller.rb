@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
 
   expose(:posts_count) { 0 }
 
+  expose(:nil_value, extend: :decorate)
+
   def index
     @posts_count = 2
   end

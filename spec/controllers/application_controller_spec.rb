@@ -3,6 +3,14 @@ require 'spec_helper'
 describe ApplicationController, type: :controller do
   let(:view) { controller.view_context }
 
+  it 'loads the modules' do
+    expect(described_class.ancestors).to include(SimpleExposure::Core)
+  end
+
+  it 'responds to #expose' do
+    expect(described_class).to respond_to(:expose)
+  end
+
   before do
     get :index
   end

@@ -1,6 +1,6 @@
 # SimpleExposure
 
-![Gem version](http://img.shields.io/gem/v/simple_exposure.svg) 
+![Gem version](http://img.shields.io/gem/v/simple_exposure.svg)
 ![Code Climate](http://img.shields.io/codeclimate/github/mikekreeki/simple_exposure.svg)
 ![Travis CI](http://img.shields.io/travis/mikekreeki/simple_exposure.svg)
 ![Github Issues](http://img.shields.io/github/issues/mikekreeki/simple_exposure.svg)
@@ -21,6 +21,8 @@ end
 - projects.each do |project|
   p = project.title
 ```
+
+Wait, there's  more!
 
 ## Installation
 
@@ -88,11 +90,22 @@ class ProjectsController < ApplicationController
   def index
     @projects = Project.page(params[:page])
   end
-
 end
 ```
 
 After:
+
+```ruby
+class ProjectsController < ApplicationController
+  paginate :projects
+
+  def index
+    self.projects = Project.all
+  end
+end
+```
+
+Which is the same as:
 
 ```ruby
 class ProjectsController < ApplicationController
@@ -105,6 +118,31 @@ end
 ```
 
 ### Combine multiple extensions
+
+Before:
+
+```ruby
+class ProjectsController < ApplicationController
+
+  def index
+    @projects = Project.page(params[:page]).decorate
+  end
+end
+```
+
+After:
+
+```ruby
+class ProjectsController < ApplicationController
+  paginate :projects, extend: :decorate
+
+  def index
+    self.projects = Project.all
+  end
+end
+```
+
+Which is the same as:
 
 ```ruby
 class ProjectsController < ApplicationController
@@ -136,15 +174,13 @@ After:
 
 ```ruby
 class ProjectsController < ApplicationController
-  expose :current_user, extend: :decorate
+  decorate :current_user
 
   expose :projects do
-    current_user.projects.ordered
+    current_user.projects.ordered 
   end
-
-  expose :completed_projects, extend: :paginate do
-    projects.completed
-  end
+  
+  paginate(:completed_projects) { projects.completed }
 end
 ```
 
@@ -173,10 +209,11 @@ module SimpleExposure
 end
 
 class ProjectsController < ApplicationController
+  my_extension :projects
+  # or
   expose :projects, extend: :my_extension
 end
 ```
-
 
 ## Contributing
 

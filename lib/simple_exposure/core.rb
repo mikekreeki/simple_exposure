@@ -2,10 +2,10 @@ require 'simple_exposure/extensions/paginate'
 require 'simple_exposure/extensions/decorate'
 
 module SimpleExposure
+  UnknownExtension = Class.new(NameError)
+
   module Core
     extend ActiveSupport::Concern
-
-    UnknownExtension = Class.new(NameError)
 
     included do
       delegate :_exposure_extensions, to: :class

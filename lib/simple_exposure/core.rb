@@ -15,7 +15,7 @@ module SimpleExposure
     def _apply_exposure_extensions
       _exposure_extensions.each do |attribute, extensions|
         extensions.each do |extension|
-          _apply_exposure_extension(attribute, extension)
+          _apply_exposure_extension(attribute, extension.to_s)
         end
       end
     end

@@ -3,6 +3,14 @@ require 'spec_helper'
 describe ApplicationController, type: :controller do
   let(:view) { controller.view_context }
 
+  it 'loads the modules' do
+    expect(described_class.ancestors).to include(SimpleExposure::Core)
+  end
+
+  it 'responds to #expose' do
+    expect(described_class).to respond_to(:expose)
+  end
+
   before do
     get :index
   end
@@ -39,4 +47,17 @@ describe ApplicationController, type: :controller do
     end
   end
 
+  describe 'Extension shortcuts' do
+    it 'quacks like a shortcut' do
+      expect(described_class).to respond_to :decorate
+    end
+
+    it 'applies the extension when specified using a shortcut' do
+      expect(view.other_user).to eq 'Andrew Bennett'
+    end
+
+    it 'takes additional extensions' do
+      expect(view.combined_extension).to eq 'HELLO'
+    end
+  end
 end

@@ -9,6 +9,7 @@ module SimpleExposure
 
     included do
       delegate :_exposure_extensions, to: :class
+      delegate :_exposure_extension_class, to: :class
       before_render :_apply_exposure_extensions
     end
 
@@ -29,12 +30,6 @@ module SimpleExposure
       end
     end
 
-    def _exposure_extension_class(extension)
-      Extensions.const_get(extension.camelize)
-    rescue NameError
-      raise UnknownExtension, "Unknown extension: #{extension}"
-    end
-
     module ClassMethods
 
       def expose(*attributes, &block)
@@ -49,6 +44,12 @@ module SimpleExposure
 
       def _exposure_extensions
         @_exposure_extensions ||= HashWithIndifferentAccess.new([])
+      end
+
+      def _exposure_extension_class(extension)
+        Extensions.const_get(extension.camelize)
+      rescue NameError
+        raise UnknownExtension, "Unknown extension: #{extension}"
       end
 
       private
@@ -91,6 +92,29 @@ module SimpleExposure
         attributes.each do |attribute|
           _exposure_extensions[attribute] += extensions
         end
+      end
+
+      def method_missing(extension, *attributes, &block)
+        extension_class = _exposure_extension_class(extension.to_s)
+        if extension_class
+          options = attributes.extract_options!
+
+          extensions = options.fetch(:extend, nil)
+          extensions = Array(extensions)
+          extensions = extensions.prepend(extension)
+
+          options = options.merge(extend: extensions)
+
+          expose(*attributes, options, &block)
+        end
+      rescue UnknownExtension
+        super
+      end
+
+      def respond_to_missing?(extension, include_private = false)
+        _exposure_extension_class(extension.to_s)
+      rescue UnknownExtension
+        false
       end
     end
   end

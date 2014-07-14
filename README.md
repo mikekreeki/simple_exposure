@@ -55,6 +55,21 @@ end
   p = project.title
 ```
 
+Expose controller methods to the views:
+
+```ruby
+# controllers/projects_controller.rb
+class ProjectsController < ApplicationController
+  expose :project
+  
+  private
+  
+  def project
+    @project ||= Project.find(1)
+  end
+end
+```
+
 ### Provide default values
 
 ```ruby

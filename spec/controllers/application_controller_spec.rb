@@ -39,4 +39,13 @@ describe ApplicationController, type: :controller do
     end
   end
 
+  describe 'Extension shortcuts' do
+    it 'quacks like a shortcut' do
+      expect(described_class).to respond_to :decorate
+    end
+
+    it 'applies the extension when specified using a shortcut' do
+      expect(view.other_user).to eq 'Andrew Bennett'
+    end
+  end
 end

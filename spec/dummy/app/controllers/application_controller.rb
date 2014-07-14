@@ -17,6 +17,8 @@ class ApplicationController < ActionController::Base
 
   expose(:nil_value, extend: :decorate)
 
+  decorate(:other_user) { OpenStruct.new(decorate: 'Andrew Bennett') }
+
   def index
     self.other_message = 'Other message'
     @ivar_message = 'Hello!'

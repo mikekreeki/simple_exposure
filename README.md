@@ -215,6 +215,12 @@ class ProjectsController < ApplicationController
 end
 ```
 
+## Similar projects
+
++ [view_accessor](https://github.com/invisiblefunnel/view_accessor)
++ [obviews](https://github.com/elia/obviews)
++ [decent_exposure](https://github.com/voxdolo/decent_exposure)
+
 ## Contributing
 
 1. Fork it

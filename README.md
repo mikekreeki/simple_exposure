@@ -219,6 +219,8 @@ class ProjectsController < ApplicationController
 end
 ```
 
+Note that extensions are applied at the time of `render`, not immediately when the value is assigned.
+
 ## Similar projects
 
 + [view_accessor](https://github.com/invisiblefunnel/view_accessor)

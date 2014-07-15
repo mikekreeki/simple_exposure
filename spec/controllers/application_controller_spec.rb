@@ -15,6 +15,13 @@ describe ApplicationController, type: :controller do
     get :index
   end
 
+  describe 'Inline definition of multiple exposed attributes' do
+    it 'exposes multiple attributes defined inline' do
+      expect(view.my_name).to eq 'Jane Doe'
+      expect(view.your_name).to eq 'Jane Doe'
+    end
+  end
+
   describe 'Default values' do
     it 'assigns default value' do
       expect(view.message).to eq 'Hello!'
@@ -53,7 +60,8 @@ describe ApplicationController, type: :controller do
     end
 
     it 'applies the extension when specified using a shortcut' do
-      expect(view.other_user).to eq 'Andrew Bennett'
+      expect(view.second_user).to eq 'Andrew Bennett'
+      expect(view.third_user).to eq 'Andrew Bennett'
     end
 
     it 'takes additional extensions' do

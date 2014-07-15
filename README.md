@@ -45,10 +45,14 @@ Or install it yourself as:
 ```ruby
 # controllers/projects_controller.rb
 class ProjectsController < ApplicationController
-  expose :projects
+  expose :projects, :project
 
   def index
     self.projects = Project.all
+  end
+
+  def show
+    self.project = Project.find(1)
   end
 end
 
@@ -63,9 +67,9 @@ Expose controller methods to the views:
 # controllers/projects_controller.rb
 class ProjectsController < ApplicationController
   expose :project
-  
+
   private
-  
+
   def project
     @project ||= Project.find(1)
   end
@@ -177,9 +181,9 @@ class ProjectsController < ApplicationController
   decorate :current_user
 
   expose :projects do
-    current_user.projects.ordered 
+    current_user.projects.ordered
   end
-  
+
   paginate(:completed_projects) { projects.completed }
 end
 ```

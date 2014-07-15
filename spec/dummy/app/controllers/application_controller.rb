@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  expose(:my_name, :your_name) { 'Jane Doe' }
+
   expose(:message)       { 'Hello!' }
   expose(:other_message) { 'Hello!' }
   expose(:ivar_message)
@@ -17,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   expose(:nil_value, extend: :decorate)
 
-  decorate(:other_user) { OpenStruct.new(decorate: 'Andrew Bennett') }
+  decorate(:second_user, :third_user) { OpenStruct.new(decorate: 'Andrew Bennett') }
 
   paginate :combined_extension, extend: :decorate do
     Class.new do
